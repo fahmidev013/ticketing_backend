@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -54,7 +55,11 @@ class AuthController extends Controller
         $email = $request->input("email");
         $password = $request->input("password");
 
-        $user = User::where("email", $email)->first();
+        // $user = User::where("email", $email)->first();
+        $user = DB::table("users")->get();
+        $user2 = DB::connection("mysql2")->table("users")->get();
+
+
 
         if (!$user) {
             $out = [
@@ -77,6 +82,7 @@ class AuthController extends Controller
             $out = [
                 "message" => "login_success",
                 "code"    => 200,
+                "email" => $email,
                 "result"  => [
                     "token" => $newtoken,
                 ]

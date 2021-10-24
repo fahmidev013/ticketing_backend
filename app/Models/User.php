@@ -10,6 +10,7 @@ use Laravel\Lumen\Auth\Authorizable;
 
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
+    protected $table = 'users';
     use Authenticatable, Authorizable;
 
     protected $fillable = [
