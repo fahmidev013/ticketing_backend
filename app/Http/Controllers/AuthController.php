@@ -48,56 +48,48 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $this->validate($request, [
-            'email' => 'required',
+            'login' => 'required',
             'password' => 'required|min:6'
         ]);
 
-        $email = $request->input("email");
-        $password = $request->input("password");
+        $login = $request->input("login");
+        $password = md5($request->input("password"));
 
         // $user = User::where("email", $email)->first();
-        $user = DB::table("users")->get();
-        $user2 = DB::connection("mysql2")->table("users")->get();
+        $user = DB::connection("mysql2")->table("system_user")->where('login', $login )->first();
 
 
 
         if (!$user) {
-            $out = [
-                "message" => "login_vailed",
-                "code"    => 401,
-                "result"  => [
-                    "token" => null,
-                ]
-            ];
-            return response()->json($out, $out['code']);
+            $out = null;
+            return response()->json($out, 401);
         }
 
-        if (md5($password) == $user->password) {
-            $newtoken  = $this->generateRandomString();
 
-            $user->update([
-                'token' => $newtoken
-            ]);
+        if ($password == $user->password) {
+            // $newtoken  = $this->generateRandomString();
+
+            // $user->update([
+            //     'token' => $newtoken
+            // ]);
 
             $out = [
-                "message" => "login_success",
-                "code"    => 200,
-                "email" => $email,
-                "result"  => [
-                    "token" => $newtoken,
-                ]
+                    "id" => $user->id,
+                    "name" => $user->name,
+                    "login" => $user->login,
+                    "email" => $user->email,
+                    "picture" => $user->picture,
+                    "active" => $user->active,
+                // "result"  => [
+                //     "token" => $newtoken,
+                // ]
             ];
+            return response()->json($out, 201);
         } else {
-            $out = [
-                "message" => "login_vailed",
-                "code"    => 401,
-                "result"  => [
-                    "token" => null,
-                ]
-            ];
+            $out = null;
+            return response()->json($out, 401);
         }
 
-        return response()->json($out, $out['code']);
     }
 
     function generateRandomString($length = 80)
