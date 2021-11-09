@@ -57,6 +57,12 @@ class AuthController extends Controller
 
         // $user = User::where("email", $email)->first();
         $user = DB::connection("mysql2")->table("system_user")->where('login', $login )->first();
+        $user_role = DB::connection("mysql2")->table("system_user_group")
+        ->leftjoin("system_user", "system_user.id", "=", "system_user_group.system_user_id")
+        ->leftjoin("system_group", "system_group.id", "=", "system_user_group.system_group_id")
+        ->select ("system_user.id", "system_user.name", "system_user.password", "system_group.name as nama", "system_group.id as id_group")
+        ->where("system_user_group.system_user_id", "=", $user->id)
+        ->get();
 
 
 
@@ -72,21 +78,26 @@ class AuthController extends Controller
             // $user->update([
             //     'token' => $newtoken
             // ]);
-
+            $groupArr = array();
+            foreach($user_role as $item){
+                array_push($groupArr, [
+                    "group_id" => $item->id_group, 
+                    "group_name" => substr(str_replace(array("»GROUP", "-"), " ", $item->nama ), 3)
+                ]);
+            };
             $out = [
-                    "id" => $user->id,
-                    "name" => $user->name,
-                    "login" => $user->login,
-                    "email" => $user->email,
-                    "picture" => $user->picture,
-                    "active" => $user->active,
-                // "result"  => [
-                //     "token" => $newtoken,
-                // ]
+                array(
+                    "user_id" => $user->id,
+                    "user_name" => $user->name,
+                    "user_login" => $user->login,
+                    "user_email" => $user->email,
+                    "user_picture" => $user->picture,
+                    "user_group" => $groupArr,
+                )
             ];
             return response()->json($out, 201);
         } else {
-            $out = null;
+            $out = [];
             return response()->json($out, 401);
         }
 

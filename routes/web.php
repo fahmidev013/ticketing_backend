@@ -20,6 +20,15 @@ $router->get('/', function () use ($router) {
 $router->post("register", "AuthController@register");
 $router->post("login", "AuthController@login");
 $router->get('coba/{id}', 'ExampleController@coba');
+$router->get('category', 'ApiController@getCategory');
+$router->get('component', 'ApiController@getComponent');
+$router->get('issue', 'ApiController@getIssue');
+$router->get('priority', 'ApiController@getPriority');
+$router->get('project', 'ApiController@getProject');
+$router->get('resolution', 'ApiController@getResolution');
+$router->get('status', 'ApiController@getStatus');
+$router->get('type', 'ApiController@getType');
+$router->get('upload', 'ApiController@upload');
 
 // $router->get("user", "UserController@index");
 
