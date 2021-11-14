@@ -86,14 +86,14 @@ class AuthController extends Controller
                 ]);
             };
             $out = [
-                array(
+                
                     "user_id" => $user->id,
                     "user_name" => $user->name,
                     "user_login" => $user->login,
                     "user_email" => $user->email,
                     "user_picture" => $user->picture,
                     "user_group" => $groupArr,
-                )
+                
             ];
             return response()->json($out, 201);
         } else {

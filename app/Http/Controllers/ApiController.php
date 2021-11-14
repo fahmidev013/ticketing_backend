@@ -30,10 +30,68 @@ class ApiController extends Controller
         return response()->json($res, 200);
     }
 
-    public function getIssue()
+    public function getIssue(Request $req)
     {
-        $res = DB::select("SELECT * FROM issue limit 1");
-        // $res = Issue::all();
+
+
+        $data = Issue::where('id_user',$req->userid)
+      ->leftjoin('systemdb.system_user as db2','Issue.id_user','=','db2.id')
+      ->leftjoin('status','Issue.id_status','=','status.id')
+      ->leftjoin('category','Issue.id_category','=','category.id')
+      ->leftjoin('priority','Issue.id_priority','=','priority.id')
+      ->leftjoin('component','Issue.id_component','=','component.id')
+      ->leftjoin('project','Issue.id_project','=','project.id')
+      ->leftjoin('resolution','Issue.id_resolution','=','resolution.id')
+      ->select([
+          'Issue.id_resolution as id_resolution','resolution.description as resolution_desc',
+          'Issue.id_project as id_project','project.description as project_desc',
+          'Issue.id_component as id_component','component.description as component_desc',
+          'Issue.id_priority as id_priority','priority.description as priority_desc',
+          'Issue.id_category as id_category','category.description as category_desc',
+          'Issue.id_status as id_status','status.description as status_desc', 
+          'Issue.id as id','Issue.description as desc','db2.id as id_user' ,
+          'db2.name as name','Issue.register_date', 'Issue.close_date', 'Issue.labels', 'Issue.title', 'Issue.environment'])
+      ->orderBy('Issue.id', 'DESC')
+      ->take(50)
+      ->get();
+
+
+        
+        // $data = DB::select("SELECT * FROM issue  
+        // where id_user = " . $req->userid);
+        
+
+        if (!$data) {
+            $res = [];
+            return response()->json($res, 401);
+        }
+
+        $res = array();
+        foreach($data as $key=>$val){
+            array_push($res, [
+                "index" => $key + 1,
+                "issue_id" => $val->id,
+                "issue_status" => $val->status_desc,
+                "issue_category" => $val->category_desc,
+                "issue_priority" => $val->priority_desc,
+                "issue_resolution" => $val->resolution_desc,
+                "issue_project" => $val->project_desc,
+                "issue_component" => $val->component_desc,
+                "issue_desc" => $val->desc,
+                "issue_user_id" => $val->id_user,
+                "issue_user_name" => $val->name,
+                "issue_register_date" => $val->register_date,
+                "issue_close_date" => $val->close_date,
+                "issue_labels" => $val->labels,
+                "issue_title" => $val->title,
+                "issue_environment" => $val->environment,
+
+            ]);
+        }
+
+
+
+
         return response()->json($res, 200);
     }
 

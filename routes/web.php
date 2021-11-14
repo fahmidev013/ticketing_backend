@@ -30,6 +30,8 @@ $router->get('status', 'ApiController@getStatus');
 $router->get('type', 'ApiController@getType');
 $router->get('upload', 'ApiController@upload');
 
+
+
 // $router->get("user", "UserController@index");
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
