@@ -119,7 +119,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    $globalPrefix =  "/api/v1";
+    $globalPrefix =  "/v1";
     $router->group(["prefix" => $globalPrefix], function($router) {
         $routes = glob(__DIR__ . '/../routes/*.php');
 
