@@ -110,22 +110,22 @@ $app->register(App\Providers\AuthServiceProvider::class);
 |
 */
 
-$app->router->group([
-    'namespace' => 'App\Http\Controllers',
-], function ($router) {
-    require __DIR__.'/../routes/web.php';
-});
-
 // $app->router->group([
 //     'namespace' => 'App\Http\Controllers',
 // ], function ($router) {
-//     $globalPrefix =  "/api/v1";
-//     $router->group(["prefix" => $globalPrefix], function($router) {
-//         $routes = glob(__DIR__ . '/../routes/*.php');
-
-//         foreach ($routes as $route) require $route;
-//     });
+//     require __DIR__.'/../routes/web.php';
 // });
+
+$app->router->group([
+    'namespace' => 'App\Http\Controllers',
+], function ($router) {
+    $globalPrefix =  "/api/v1";
+    $router->group(["prefix" => $globalPrefix], function($router) {
+        $routes = glob(__DIR__ . '/../routes/*.php');
+
+        foreach ($routes as $route) require $route;
+    });
+});
 
 
 
