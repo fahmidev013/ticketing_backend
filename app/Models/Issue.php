@@ -14,7 +14,7 @@ class Issue extends Model
     
 
     protected $fillable = [
-        'id_user', 'id_status', 'id_project', 'id_priority', 'id_category', 'id_resolution', 
+        'id_user', 'id_status', 'id_project', 'id_priority', 'id_category', 
         'id_member', 'id_component', 'id_type', 'id_resolution', 'register_date',
         'close_date', 'title', 'environtment', 'description', 'target_solved',
         'downtime', 'labels'
