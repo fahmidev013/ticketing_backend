@@ -35,8 +35,8 @@ class ApiController extends Controller
     {
 
 
-        // $userGroup = DB::connection('mysql2')->select('select system_group_id from system_user_group where system_user_id = :iduser and system_group_id in (13,14,15,17,18)', ['iduser' => $req->userid]);
-        $userGroup = DB::connection('mysql2')->select('select system_group_id from system_user_group where system_user_id = :iduser and system_group_id in (13,14,15,17,18)', [28]);
+        $userGroup = DB::connection('mysql2')->select('select system_group_id from system_user_group where system_user_id = :iduser and system_group_id in (13,14,15,17,18)', ['iduser' => $req->userid]);
+        
         $groups = [];
         foreach($userGroup as $val){
             array_push($groups, $val->system_group_id);
