@@ -98,23 +98,23 @@ class ApiController extends Controller
         }
         if (in_array(15, $groups)) {
             $data = Issue::select([
-                'Issue.id_resolution as id_resolution', 'resolution.description as resolution_desc',
-                'Issue.id_project as id_project', 'project.description as project_desc',
-                'Issue.id_component as id_component', 'component.description as component_desc',
-                'Issue.id_priority as id_priority', 'priority.description as priority_desc',
-                'Issue.id_category as id_category', 'category.description as category_desc',
-                'Issue.id_status as id_status', 'status.description as status_desc',
-                'Issue.id as id', 'Issue.description as desc', 'db2.id as id_user',
-                'db2.name as name', 'Issue.register_date', 'Issue.close_date', 'Issue.labels', 'Issue.title', 'Issue.environment'
+                'issue.id_resolution as id_resolution', 'resolution.description as resolution_desc',
+                'issue.id_project as id_project', 'project.description as project_desc',
+                'issue.id_component as id_component', 'component.description as component_desc',
+                'issue.id_priority as id_priority', 'priority.description as priority_desc',
+                'issue.id_category as id_category', 'category.description as category_desc',
+                'issue.id_status as id_status', 'status.description as status_desc',
+                'issue.id as id', 'Issue.description as desc', 'db2.id as id_user',
+                'db2.name as name', 'issue.register_date', 'issue.close_date', 'issue.labels', 'issue.title', 'issue.environment'
             ])
-                ->leftjoin('systemdb.system_user as db2', 'Issue.id_user', '=', 'db2.id')
-                ->leftjoin('status', 'Issue.id_status', '=', 'status.id')
-                ->leftjoin('category', 'Issue.id_category', '=', 'category.id')
-                ->leftjoin('priority', 'Issue.id_priority', '=', 'priority.id')
-                ->leftjoin('component', 'Issue.id_component', '=', 'component.id')
-                ->leftjoin('project', 'Issue.id_project', '=', 'project.id')
-                ->leftjoin('resolution', 'Issue.id_resolution', '=', 'resolution.id')
-                ->orderBy('Issue.id', 'DESC')
+                ->leftjoin('systemdb.system_user as db2', 'issue.id_user', '=', 'db2.id')
+                ->leftjoin('status', 'issue.id_status', '=', 'status.id')
+                ->leftjoin('category', 'issue.id_category', '=', 'category.id')
+                ->leftjoin('priority', 'issue.id_priority', '=', 'priority.id')
+                ->leftjoin('component', 'issue.id_component', '=', 'component.id')
+                ->leftjoin('project', 'issue.id_project', '=', 'project.id')
+                ->leftjoin('resolution', 'issue.id_resolution', '=', 'resolution.id')
+                ->orderBy('issue.id', 'DESC')
                 ->get();
         } else {
             $listUser = DB::connection('mysql2')->select('select DISTINCT(system_user_id) from system_user_group where system_group_id in ( ? ) order by system_user_id', [implode(',', $groups)]);
@@ -125,13 +125,13 @@ class ApiController extends Controller
 
 
             $data = Issue::whereIn('id_user', $users)
-                ->leftjoin('systemdb.system_user as db2', 'Issue.id_user', '=', 'db2.id')
-                ->leftjoin('status', 'Issue.id_status', '=', 'status.id')
-                ->leftjoin('category', 'Issue.id_category', '=', 'category.id')
-                ->leftjoin('priority', 'Issue.id_priority', '=', 'priority.id')
-                ->leftjoin('component', 'Issue.id_component', '=', 'component.id')
-                ->leftjoin('project', 'Issue.id_project', '=', 'project.id')
-                ->leftjoin('resolution', 'Issue.id_resolution', '=', 'resolution.id')
+                ->leftjoin('systemdb.system_user as db2', 'issue.id_user', '=', 'db2.id')
+                ->leftjoin('status', 'issue.id_status', '=', 'status.id')
+                ->leftjoin('category', 'issue.id_category', '=', 'category.id')
+                ->leftjoin('priority', 'issue.id_priority', '=', 'priority.id')
+                ->leftjoin('component', 'issue.id_component', '=', 'component.id')
+                ->leftjoin('project', 'issue.id_project', '=', 'project.id')
+                ->leftjoin('resolution', 'issue.id_resolution', '=', 'resolution.id')
                 ->select([
                     'Issue.id_resolution as id_resolution', 'resolution.description as resolution_desc',
                     'Issue.id_project as id_project', 'project.description as project_desc',
@@ -140,9 +140,9 @@ class ApiController extends Controller
                     'Issue.id_category as id_category', 'category.description as category_desc',
                     'Issue.id_status as id_status', 'status.description as status_desc',
                     'Issue.id as id', 'Issue.description as desc', 'db2.id as id_user',
-                    'db2.name as name', 'Issue.register_date', 'Issue.close_date', 'Issue.labels', 'Issue.title', 'Issue.environment'
+                    'db2.name as name', 'issue.register_date', 'issue.close_date', 'issue.labels', 'issue.title', 'issue.environment'
                 ])
-                ->orderBy('Issue.id', 'DESC')
+                ->orderBy('issue.id', 'DESC')
                 ->get();
         }
 
@@ -191,45 +191,45 @@ class ApiController extends Controller
         }
         if (in_array(15, $groups)) {
             $data = Issue::select([
-                'Issue.id_resolution as id_resolution', 'resolution.description as resolution_desc',
-                'Issue.id_project as id_project', 'project.description as project_desc',
-                'Issue.id_component as id_component', 'component.description as component_desc',
-                'Issue.id_priority as id_priority', 'priority.description as priority_desc',
-                'Issue.id_category as id_category', 'category.description as category_desc',
-                'Issue.id_status as id_status', 'status.description as status_desc',
-                'Issue.id as id', 'Issue.description as desc', 'db2.id as id_user',
-                'db2.name as name', 'Issue.register_date', 'Issue.close_date', 'Issue.labels', 'Issue.title', 'Issue.environment'
+                'issue.id_resolution as id_resolution', 'resolution.description as resolution_desc',
+                'issue.id_project as id_project', 'project.description as project_desc',
+                'issue.id_component as id_component', 'component.description as component_desc',
+                'issue.id_priority as id_priority', 'priority.description as priority_desc',
+                'issue.id_category as id_category', 'category.description as category_desc',
+                'issue.id_status as id_status', 'status.description as status_desc',
+                'issue.id as id', 'issue.description as desc', 'db2.id as id_user',
+                'db2.name as name', 'issue.register_date', 'issue.close_date', 'issue.labels', 'issue.title', 'issue.environment'
             ])
-                ->leftjoin('systemdb.system_user as db2', 'Issue.id_user', '=', 'db2.id')
-                ->leftjoin('status', 'Issue.id_status', '=', 'status.id')
-                ->leftjoin('category', 'Issue.id_category', '=', 'category.id')
-                ->leftjoin('priority', 'Issue.id_priority', '=', 'priority.id')
-                ->leftjoin('component', 'Issue.id_component', '=', 'component.id')
-                ->leftjoin('project', 'Issue.id_project', '=', 'project.id')
-                ->leftjoin('resolution', 'Issue.id_resolution', '=', 'resolution.id')
-                ->orderBy('Issue.id', 'DESC')
+                ->leftjoin('systemdb.system_user as db2', 'issue.id_user', '=', 'db2.id')
+                ->leftjoin('status', 'issue.id_status', '=', 'status.id')
+                ->leftjoin('category', 'issue.id_category', '=', 'category.id')
+                ->leftjoin('priority', 'issue.id_priority', '=', 'priority.id')
+                ->leftjoin('component', 'issue.id_component', '=', 'component.id')
+                ->leftjoin('project', 'issue.id_project', '=', 'project.id')
+                ->leftjoin('resolution', 'issue.id_resolution', '=', 'resolution.id')
+                ->orderBy('issue.id', 'DESC')
                 ->get();
         } else {
 
 
             $data = Issue::where('id_user', $req->userid)
                 ->orWhere('id_member', $req->userid)
-                ->leftjoin('systemdb.system_user as db2', 'Issue.id_user', '=', 'db2.id')
-                ->leftjoin('status', 'Issue.id_status', '=', 'status.id')
-                ->leftjoin('category', 'Issue.id_category', '=', 'category.id')
-                ->leftjoin('priority', 'Issue.id_priority', '=', 'priority.id')
-                ->leftjoin('component', 'Issue.id_component', '=', 'component.id')
-                ->leftjoin('project', 'Issue.id_project', '=', 'project.id')
-                ->leftjoin('resolution', 'Issue.id_resolution', '=', 'resolution.id')
+                ->leftjoin('systemdb.system_user as db2', 'issue.id_user', '=', 'db2.id')
+                ->leftjoin('status', 'issue.id_status', '=', 'status.id')
+                ->leftjoin('category', 'issue.id_category', '=', 'category.id')
+                ->leftjoin('priority', 'issue.id_priority', '=', 'priority.id')
+                ->leftjoin('component', 'issue.id_component', '=', 'component.id')
+                ->leftjoin('project', 'issue.id_project', '=', 'project.id')
+                ->leftjoin('resolution', 'issue.id_resolution', '=', 'resolution.id')
                 ->select([
-                    'Issue.id_resolution as id_resolution', 'resolution.description as resolution_desc',
-                    'Issue.id_project as id_project', 'project.description as project_desc',
-                    'Issue.id_component as id_component', 'component.description as component_desc',
-                    'Issue.id_priority as id_priority', 'priority.description as priority_desc',
-                    'Issue.id_category as id_category', 'category.description as category_desc',
-                    'Issue.id_status as id_status', 'status.description as status_desc',
-                    'Issue.id as id', 'Issue.description as desc', 'db2.id as id_user',
-                    'db2.name as name', 'Issue.register_date', 'Issue.close_date', 'Issue.labels', 'Issue.title', 'Issue.environment'
+                    'issue.id_resolution as id_resolution', 'resolution.description as resolution_desc',
+                    'issue.id_project as id_project', 'project.description as project_desc',
+                    'issue.id_component as id_component', 'component.description as component_desc',
+                    'issue.id_priority as id_priority', 'priority.description as priority_desc',
+                    'issue.id_category as id_category', 'category.description as category_desc',
+                    'issue.id_status as id_status', 'status.description as status_desc',
+                    'issue.id as id', 'issue.description as desc', 'db2.id as id_user',
+                    'db2.name as name', 'issue.register_date', 'issue.close_date', 'issue.labels', 'issue.title', 'issue.environment'
                 ])
                 ->orderBy('Issue.id', 'DESC')
                 ->get();
