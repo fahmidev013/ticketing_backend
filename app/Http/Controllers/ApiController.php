@@ -44,7 +44,7 @@ class ApiController extends Controller
                 'issue.id_priority as id_priority', 'priority.description as priority_desc',
                 'issue.id_category as id_category', 'category.description as category_desc',
                 'issue.id_status as id_status', 'status.description as status_desc',
-                'issue.id as id', 'Issue.description as desc', 'db2.id as id_user',
+                'issue.id as id', 'issue.description as desc', 'db2.id as id_user',
                 'db2.name as name', 'issue.register_date', 'issue.close_date', 'issue.labels', 'issue.title', 'issue.environment'
             ])
             ->orderBy('issue.id', 'DESC')
