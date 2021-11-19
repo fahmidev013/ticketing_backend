@@ -21,7 +21,7 @@ $router->post("register", "AuthController@register");
 $router->post("login", "AuthController@login");
 $router->get('coba/{id}', 'ExampleController@coba');
 $router->get('category', 'ApiController@getCategory');
-$router->get('component', 'ApiController@getComponent');
+$router->post('notif', 'ApiController@getNotif');
 $router->get('issue', 'ApiController@getIssue');
 $router->get('priority', 'ApiController@getPriority');
 $router->get('project', 'ApiController@getProject');
