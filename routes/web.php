@@ -22,7 +22,7 @@ $router->post("login", "AuthController@login");
 $router->get('coba/{id}', 'ExampleController@coba');
 $router->get('category', 'ApiController@getCategory');
 $router->post('notif', 'ApiController@getNotif');
-$router->get('issue', 'ApiController@getIssue');
+$router->get('issue', 'ApiController@getIssueById');
 $router->get('priority', 'ApiController@getPriority');
 $router->get('project', 'ApiController@getProject');
 $router->get('resolution', 'ApiController@getResolution');
