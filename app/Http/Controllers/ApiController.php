@@ -133,13 +133,13 @@ class ApiController extends Controller
                 ->leftjoin('project', 'issue.id_project', '=', 'project.id')
                 ->leftjoin('resolution', 'issue.id_resolution', '=', 'resolution.id')
                 ->select([
-                    'Issue.id_resolution as id_resolution', 'resolution.description as resolution_desc',
-                    'Issue.id_project as id_project', 'project.description as project_desc',
-                    'Issue.id_component as id_component', 'component.description as component_desc',
-                    'Issue.id_priority as id_priority', 'priority.description as priority_desc',
-                    'Issue.id_category as id_category', 'category.description as category_desc',
-                    'Issue.id_status as id_status', 'status.description as status_desc',
-                    'Issue.id as id', 'Issue.description as desc', 'db2.id as id_user',
+                    'issue.id_resolution as id_resolution', 'resolution.description as resolution_desc',
+                    'issue.id_project as id_project', 'project.description as project_desc',
+                    'issue.id_component as id_component', 'component.description as component_desc',
+                    'issue.id_priority as id_priority', 'priority.description as priority_desc',
+                    'issue.id_category as id_category', 'category.description as category_desc',
+                    'issue.id_status as id_status', 'status.description as status_desc',
+                    'issue.id as id', 'Issue.description as desc', 'db2.id as id_user',
                     'db2.name as name', 'issue.register_date', 'issue.close_date', 'issue.labels', 'issue.title', 'issue.environment'
                 ])
                 ->orderBy('issue.id', 'DESC')
@@ -231,7 +231,7 @@ class ApiController extends Controller
                     'issue.id as id', 'issue.description as desc', 'db2.id as id_user',
                     'db2.name as name', 'issue.register_date', 'issue.close_date', 'issue.labels', 'issue.title', 'issue.environment'
                 ])
-                ->orderBy('Issue.id', 'DESC')
+                ->orderBy('issue.id', 'DESC')
                 ->get();
         }
 
